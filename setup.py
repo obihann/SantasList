@@ -17,5 +17,5 @@ setup(name='SantasList',
           'Topic :: Utilities',
       ],
       packages=find_packages(exclude=['data', 'contrib', 'docs', 'tests*']),
-      install_requires=['PyYAML']
+      install_requires=['pyyaml']
       )
