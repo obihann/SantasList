@@ -1,6 +1,6 @@
 # Santas List
 
-| A non-denominational, low calorie, gluten free, and open source Python module to help Santa himself!
+> A non-denominational, low calorie, gluten free, and open source Python module to help Santa himself!
 
 ## Seriously, what is this?
 
