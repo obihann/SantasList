@@ -2,7 +2,7 @@
 
 from distutils.core import setup
 
-setup(name='SantaBot',
+setup(name='SantasList',
       version='0.0.1',
       description='Helping santa',
       author='Jeff Hann',

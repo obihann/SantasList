@@ -1,4 +1,4 @@
-from SantaBot.Objects import Person
+from SantasList.Objects import Person
 
 
 class People(list):

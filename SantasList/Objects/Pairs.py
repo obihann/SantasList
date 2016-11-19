@@ -1,5 +1,5 @@
 import random
-from SantaBot.Objects import Pair
+from SantasList.Objects import Pair
 
 
 class Pairs(list):

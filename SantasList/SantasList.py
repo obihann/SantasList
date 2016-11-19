@@ -1,8 +1,8 @@
-from SantaBot.Objects import People
-from SantaBot.Objects import Pairs
+from SantasList.Objects import People
+from SantasList.Objects import Pairs
 
 
-class SantaBot(object):
+class SantasList(object):
     def __init__(self, people):
         self._people = People(people)
 
