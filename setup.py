@@ -1,14 +1,27 @@
 #!/usr/bin/env python
 
-from distutils.core import setup
-from setuptools import find_packages
+import os
+import re
 
-setup(name='SantasList',
-      version='0.0.1',
+from setuptools import setup, find_packages
+
+
+ROOT = os.path.dirname(__file__)
+VERSION_RE = re.compile(r'''__version__ = ['"]([0-9.]+)['"]''')
+
+def get_version():
+    init = open(os.path.join(ROOT, 'SantasList', '__init__.py')).read()
+    return VERSION_RE.search(init).group(1)
+
+
+setup(name='Santaslist',
+      version=get_version(),
+      long_description=open('README.md').read(),
       description='Helping santa',
+      scripts=[],
       author='Jeff Hann',
       author_email='jeffhann@gmail.com',
-      url='http://www.jeffreyhann.ca/',
+      url='https://github.com/obihann/Santaslist',
       classifiers=[
           'Development Status :: 3 - Alpha',
           'License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)',
@@ -16,6 +29,6 @@ setup(name='SantasList',
           'Natural Language :: English',
           'Topic :: Utilities',
       ],
-      packages=find_packages(exclude=['data', 'contrib', 'docs', 'tests*']),
+      packages=find_packages(exclude=['tests*']),
       install_requires=['pyyaml']
       )
