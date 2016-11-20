@@ -16,7 +16,6 @@ def get_version():
 
 setup(name='Santaslist',
       version=get_version(),
-      long_description=open('README.md').read(),
       description='Helping santa',
       scripts=[],
       author='Jeff Hann',

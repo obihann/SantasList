@@ -1,7 +1,7 @@
 from SantasList.SantasList import SantasList
 
 __author__ = 'Jeffrey Hann'
-__version__ = '0.0.4'
+__version__ = '0.0.5'
 
 _theList = None
 
