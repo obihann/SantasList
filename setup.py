@@ -10,11 +10,11 @@ ROOT = os.path.dirname(__file__)
 VERSION_RE = re.compile(r'''__version__ = ['"]([0-9.]+)['"]''')
 
 def get_version():
-    init = open(os.path.join(ROOT, 'SantasList', '__init__.py')).read()
+    init = open(os.path.join(ROOT, 'santaslist', '__init__.py')).read()
     return VERSION_RE.search(init).group(1)
 
 
-setup(name='Santaslist',
+setup(name='santaslist',
       version=get_version(),
       description='Helping santa',
       scripts=[],
@@ -29,5 +29,7 @@ setup(name='Santaslist',
           'Topic :: Utilities',
       ],
       packages=find_packages(exclude=['tests*']),
-      install_requires=['pyyaml']
+      install_requires=['pyyaml'],
+      setup_requires=['pytest-runner'],
+      tests_require=['pytest']
       )
