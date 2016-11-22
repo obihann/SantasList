@@ -1,26 +1,29 @@
 # test_santaslist.py
-
 import yaml
 import santaslist
-import pytest
 
 TEST_PEOPLE_STR = 'jeff hann (@obihann),bob bober (@bob),frank franklyn (@franky),george the dog (@george)'
 
 
-@pytest.fixture()
 def load_people():
     data = open('test/people.yml', 'r')
     return santaslist.load_people(yaml.load(data)['people'])
 
 
 class TestSantasList(object):
-    def test_load_people(self, load_people):
-        assert isinstance(load_people.people, santaslist.People)
+    def test_load_people(self):
+        assert isinstance(load_people(), list)
 
-    def test_list_people(self, load_people):
-        assert TEST_PEOPLE_STR == str(santaslist.list_people())
-        assert isinstance(santaslist.list_people(), santaslist.People)
+    def test_people(self):
+        assert isinstance(santaslist.people(), list)
 
-    def test_list_matches(self, load_people):
-        assert isinstance(santaslist.matches(), santaslist.Pairs)
-        assert str(santaslist.matches()) != ''
+    def test_print_people(self):
+        assert TEST_PEOPLE_STR == str(santaslist.print_people())
+
+    def test_pairs(self):
+        assert isinstance(santaslist.pairs(), list)
+
+    def test_print_pairs(self):
+        pairs = santaslist.print_pairs()
+        assert isinstance(pairs, str)
+        assert pairs != ''
