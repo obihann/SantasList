@@ -3,7 +3,7 @@ import random
 
 
 __author__ = 'Jeffrey Hann'
-__version__ = '0.0.8'
+__version__ = '1.0.0'
 
 _people = []
 _pairs = []
@@ -13,24 +13,13 @@ def _build_pairs(givers: list) -> list:
     """
     Load a list of People and pair them
 
-    :param list:
+    :param givers:
     :rtype: None
     """
-    new_pairs = []
-    assert isinstance(givers, list)
-    receivers = givers[:]
-    random.shuffle(receivers)
+    random.shuffle(givers)
 
-    for pos, item in enumerate(givers):
-        a = givers[pos]
-
-        if (pos + 1) >= len(receivers):
-            pos = 0
-
-        b = givers[pos + 1]
-        new_match = (a, b)
-
-        new_pairs.append(new_match)
+    new_pairs = [pair for pair in zip(givers, givers[1:])]
+    new_pairs.append((givers[-1], givers[0]))
 
     return new_pairs
 
@@ -40,11 +29,8 @@ def _pop_list(my_list: list) -> dict:
     Take a list of people and remove a random choice
 
     :param my_list: list
-    :param match: str
     :rtype: dict
     """
-    assert isinstance(my_list, list)
-
     # pick random person
     x = random.choice(my_list)
 
@@ -85,14 +71,9 @@ def load_people(data: list) -> list:
     :param data: list
     :rtype: list
     """
-
     global _people, _pairs
     _people = data
-
     _pairs = _build_pairs(_people[:])
-
-    assert isinstance(_people, list)
-    assert isinstance(_pairs, list)
 
     return _people
 
