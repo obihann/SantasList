@@ -3,68 +3,79 @@ import random
 
 
 __author__ = 'Jeffrey Hann'
-__version__ = '0.0.7'
+__version__ = '0.0.8'
 
 _people = []
 _pairs = []
 
 
-class Pairs(list):
-    _pairs = []
+def _build_pairs(givers: list) -> list:
+    """
+    Load a list of People and pair them
 
-    def __init__(self, data: list) -> None:
-        """
-        Load a list of People and pair them
+    :param list:
+    :rtype: None
+    """
+    new_pairs = []
+    assert isinstance(givers, list)
+    receivers = givers[:]
+    random.shuffle(receivers)
 
-        :param people:
-        :rtype: None
-        """
-        assert isinstance(data, list)
+    for pos, item in enumerate(givers):
+        a = givers[pos]
 
-        while len(data) > 0:
-            a = self._pop_list(data)
-            b = self._pop_list(data)
+        if (pos + 1) >= len(receivers):
+            pos = 0
 
-            self._pairs.append((a, b))
+        b = givers[pos + 1]
+        new_match = (a, b)
 
-        list.__init__(self, self._pairs)
+        new_pairs.append(new_match)
 
-    def __str__(self) -> str:
-        """
-        Return all pairs in a string
+    return new_pairs
 
-        :rtype: str
-        """
-        return '\n'.join(self._print_pair(x) for x in self._pairs)
 
-    @staticmethod
-    def _print_pair(pair: tuple) -> str:
-        """
-        Print all the pairs
+def _pop_list(my_list: list) -> dict:
+    """
+    Take a list of people and remove a random choice
 
-        :param pair: tuple
-        :rtype: str
-        """
-        return '%s <---> %s' % (_print_person(pair[0]), _print_person(pair[1]))
+    :param my_list: list
+    :param match: str
+    :rtype: dict
+    """
+    assert isinstance(my_list, list)
 
-    @staticmethod
-    def _pop_list(my_list: list) -> dict:
-        """
-        Take a list of People and remove a random choice, then remove that Person
+    # pick random person
+    x = random.choice(my_list)
 
-        :param my_list:
-        :rtype: dict
-        """
-        assert isinstance(my_list, list)
-        indices = list(range(0, len(my_list)))
+    # grab user
+    y = my_list[x]
 
-        x = random.choice(indices)
-        y = my_list[x]
+    # remove items from the lists
+    del my_list[x]
 
-        del indices[x]
-        del my_list[x]
+    return y
 
-        return y
+
+def _format_pair(pair: tuple) -> str:
+    """
+    Print all the pairs
+
+    :param pair: tuple
+    :rtype: str
+    """
+    return '%s ----> %s' % (_format_person(pair[0]), _format_person(pair[1]))
+
+
+def _format_person(data:dict) -> str:
+    """
+    Print a person dictionary in a sexy format
+
+    :param data: dict
+    :rtype: str
+    """
+    assert 'name' in data and 'username' in data
+    return '%s (%s)' % (data['name'], data['username'])
 
 
 def load_people(data: list) -> list:
@@ -77,23 +88,13 @@ def load_people(data: list) -> list:
 
     global _people, _pairs
     _people = data
-    _pairs = Pairs(_people[:])
+
+    _pairs = _build_pairs(_people[:])
 
     assert isinstance(_people, list)
-    assert isinstance(_pairs, Pairs)
+    assert isinstance(_pairs, list)
 
     return _people
-
-
-def _print_person(data:dict) -> str:
-    """
-    Print a person dictionary in a sexy format
-
-    :param data: dict
-    :rtype: str
-    """
-    assert 'name' in data and 'username' in data
-    return '%s (%s)' % (data['name'], data['username'])
 
 
 def people() -> list:
@@ -105,22 +106,22 @@ def people() -> list:
     return _people
 
 
+def pairs() -> list:
+    """
+    return list
+
+    :rtype: list
+    """
+    return _pairs
+
+
 def print_people() -> str:
     """
     return a nicely formatted string of people
 
     :rtype: str
     """
-    return ','.join(_print_person(x) for x in _people)
-
-
-def pairs() -> Pairs:
-    """
-    return Pairs
-
-    :rtype: Pairs
-    """
-    return _pairs
+    return ','.join(_format_person(x) for x in _people)
 
 
 def print_pairs() -> str:
@@ -129,4 +130,4 @@ def print_pairs() -> str:
 
     :rtype: str
     """
-    return str(_pairs)
+    return '\n'.join(_format_pair(x) for x in _pairs)
